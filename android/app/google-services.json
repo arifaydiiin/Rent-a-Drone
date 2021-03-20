@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "417151724036",
+    "project_id": "drone-sale",
+    "storage_bucket": "drone-sale.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417151724036:android:c0e74bbcc63fdc375a6351",
+        "android_client_info": {
+          "package_name": "com.example.drone_sale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417151724036-gfttm8tgjaqpo11u8v6ms2n389toeh3t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.drone_sale",
+            "certificate_hash": "24ffaf2777e2dd543f8d1a74128d8132228136bf"
+          }
+        },
+        {
+          "client_id": "417151724036-ks1d0vcnhphuta189r7t46m9it0k6fjj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ2qWloCGd7nny0AnOWTo_Q7b2Rn3nBcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417151724036-ks1d0vcnhphuta189r7t46m9it0k6fjj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
