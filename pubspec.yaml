@@ -37,7 +37,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   cloud_firestore: ^1.0.0
   image_picker: ^0.7.2+1
-  smart_select: ^4.3.2
+  firebase_storage: ^8.0.0
 
   
 dev_dependencies:

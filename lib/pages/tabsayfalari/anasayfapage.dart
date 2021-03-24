@@ -50,6 +50,25 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         child: Card(
                           child: Column(
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 12),
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    radius: 27,
+                                    child: Image.network(
+                                      kullanici.user.profilfoto,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 200,
+                                height: 300,
+                                child: Image.network(
+                                  snapshot.data[index].profilurl,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              ),
                               ListTile(
                                 leading: Text("Fotoğraf"),
                                 title: Text(snapshot.data[index].ilanadi,
@@ -57,10 +76,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                 trailing: Text(
                                   "Fiyat: " + snapshot.data[index].fiyat,
                                   style: TextStyle(fontSize: 14),
-                                ),
-                                subtitle: Text(
-                                  "Konum: " + snapshot.data[index].il,
-                                  style: TextStyle(fontSize: 16),
                                 ),
                               ),
                             ],

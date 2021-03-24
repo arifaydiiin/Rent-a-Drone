@@ -29,9 +29,8 @@ class _ProfilState extends State<Profil> {
                     ),
                     CircleAvatar(
                       radius: 45,
-                      backgroundImage: NetworkImage(
-                          "https://miro.medium.com/max/550/1*vYUBqmI6Q8rR_vO4BgUXOQ.jpeg",
-                          scale: 0.6),
+                      backgroundImage:
+                          NetworkImage(kullanici.user.profilfoto, scale: 0.6),
                     ),
                     SizedBox(
                       width: 30,
@@ -39,7 +38,7 @@ class _ProfilState extends State<Profil> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Arkadaşlarım"),
+                        Text("İlanlarım"),
                         Text("105"),
                       ],
                     ),
@@ -49,8 +48,8 @@ class _ProfilState extends State<Profil> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Engelleyenler"),
-                        Text("0"),
+                        Text("Favorilerim"),
+                        Text("4"),
                       ],
                     ),
                     SizedBox(
@@ -59,8 +58,8 @@ class _ProfilState extends State<Profil> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Post Sayım"),
-                        Text("17"),
+                        Text("Engellenenler"),
+                        Text("1"),
                       ],
                     ),
                     SizedBox(
@@ -87,7 +86,6 @@ class _ProfilState extends State<Profil> {
                     await kullanici.signout();
                   },
                   child: Text("Çıkış Yap")),
-              Text("Arif2"),
             ],
           ),
         ),

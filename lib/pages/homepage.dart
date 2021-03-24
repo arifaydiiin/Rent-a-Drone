@@ -21,7 +21,7 @@ List<Widget> sayfalar = [
 
 List<String> sayfaliste = [
   "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-  "https://emrealtunbilek.com/wp-content/uploads/2016/10/apple-icon-72x72.png",
+  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
   "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 ];
 
@@ -33,15 +33,14 @@ class _HomePageState extends State<HomePage> {
     var firebase = Provider.of<FirebaseServis>(context);
     return firebase.user.ogretici == true
         ? Scaffold(
-            bottomNavigationBar: BottomNavigationBar(            
-              
+            bottomNavigationBar: BottomNavigationBar(
               onTap: (index) {
                 setState(() {
                   _currentindex = index;
                 });
-              },  
-              selectedItemColor: Colors.blue,  
-              currentIndex: _currentindex,        
+              },
+              selectedItemColor: Colors.blue,
+              currentIndex: _currentindex,
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.polymer_sharp),

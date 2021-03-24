@@ -6,26 +6,39 @@ class Ilanlar {
   final String aciklama; //x
   final String deneyim; //x
   final String fiyat;
+  bool boostmu;
+  //boostmu ?
 
-  Ilanlar({this.fiyat,
-      this.ilanadi, this.il, this.ilce, this.aciklama, this.deneyim});
+  Ilanlar(
+      {this.profilurl,
+      this.fiyat,
+      this.ilanadi,
+      this.il,
+      this.ilce,
+      this.aciklama,
+      this.deneyim,
+      this.boostmu});
 
   Map<String, dynamic> toMap() {
     return {
+      "profilurl": profilurl,
       "ilanadi": ilanadi,
       "il": il,
       "ilce": ilce,
       "aciklama": aciklama,
       "deneyim": deneyim,
       "fiyat": fiyat,
+      "boostmu": boostmu,
     };
   }
 
   Ilanlar.toObj(Map<String, dynamic> obje)
-      : ilanadi = obje["ilanadi"],
+      : profilurl = obje["profilurl"],
+        ilanadi = obje["ilanadi"],
         il = obje["il"],
         ilce = obje["ilce"],
         aciklama = obje["aciklama"],
         deneyim = obje["deneyim"],
-        fiyat = obje["fiyat"];
+        fiyat = obje["fiyat"],
+        boostmu = obje["boostmu"];
 }

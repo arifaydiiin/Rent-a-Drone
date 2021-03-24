@@ -293,50 +293,105 @@ class _YeniIlanState extends State<YeniIlan> {
                   ),
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    print(_secilenil);
-                    print(_secilenilce);
-                    //print(_textaciklama.text);
-                    print(_textfiyat.text);
-                    print(_textilanbaslik.text);
-                    if (_dropmenusecilen == "Drone Deneyinimizi girin" ||
-                        _secilenil == null ||
-                        _secilenilce == null ||
-                        _textaciklama.text == "" ||
-                        _textfiyat.text == "" ||
-                        _textilanbaslik.text == "") {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text("Drone Up"),
-                              content:
-                                  Text("Lütfen eksik bilgileri doldurunuz."),
-                            );
-                          });
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text("Drone Up"),
-                              content:
-                                  Text("İlanınız Başarıyla yayınlanmıştır."),
-                            );
-                          });
-                    }
-                     Ilanlar yenilan = Ilanlar(
-                fiyat:_textfiyat.text,
-                il: _secilenil.toString(),
-                aciklama: _textaciklama.text,
-                deneyim: _dropmenusecilen,
-                 ilanadi: _textilanbaslik.text,
-                 ilce: _secilenilce.toString(),
-              );
-             kullanici.ilanekle(yenilan);
-                  },
-                  child: Text("İlanı ekle"))
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_dropmenusecilen == "Drone Deneyinimizi girin" ||
+                          _secilenil == null ||
+                          _secilenilce == null ||
+                          _textaciklama.text == "" ||
+                          _textfiyat.text == "" ||
+                          _textilanbaslik.text == "") {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Drone Up"),
+                                content:
+                                    Text("Lütfen eksik bilgileri doldurunuz."),
+                              );
+                            });
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Drone Up"),
+                                content:
+                                    Text("İlanınız Başarıyla yayınlanmıştır."),
+                              );
+                            });
+                        var url = await kullanici.uploadfile(
+                            kullanici.user.userID, "ilanfotolari", _ilanresmi);
+                        Ilanlar yenilanboost = Ilanlar(
+                          profilurl: _ilanresmi == null
+                              ? "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                              : url,
+                          fiyat: _textfiyat.text,
+                          il: _secilenil.toString(),
+                          aciklama: _textaciklama.text,
+                          deneyim: _dropmenusecilen,
+                          ilanadi: _textilanbaslik.text,
+                          ilce: _secilenilce.toString(),
+                          boostmu: true,
+                        );
+                        kullanici.ilanekle(yenilanboost);
+                      }
+                      // Ödeme işlemleri sonuc true ise..
+                    },
+                    child: Text("Boost ile ilan ver"),
+                  ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        if (_dropmenusecilen == "Drone Deneyinimizi girin" ||
+                            _secilenil == null ||
+                            _secilenilce == null ||
+                            _textaciklama.text == "" ||
+                            _textfiyat.text == "" ||
+                            _textilanbaslik.text == "") {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Drone Up"),
+                                  content: Text(
+                                      "Lütfen eksik bilgileri doldurunuz."),
+                                );
+                              });
+                        } else {
+                          var url = await kullanici.uploadfile(
+                              kullanici.user.userID,
+                              "ilanfotolari",
+                              _ilanresmi);
+                          Ilanlar yenilan = Ilanlar(
+                            profilurl: _ilanresmi == null
+                                ? "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                                : url,
+                            fiyat: _textfiyat.text,
+                            il: _secilenil.toString(),
+                            aciklama: _textaciklama.text,
+                            deneyim: _dropmenusecilen,
+                            ilanadi: _textilanbaslik.text,
+                            ilce: _secilenilce.toString(),
+                            boostmu: false,
+                          );
+                          kullanici.ilanekle(yenilan);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Drone Up"),
+                                  content: Text(
+                                      "İlanınız Başarıyla yayınlanmıştır."),
+                                );
+                              });
+                        }
+                      },
+                      child: Text("İlanı ekle")),
+                ],
+              ),
             ],
           );
         },

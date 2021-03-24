@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone_sale/modellerim/ilanlarim.dart';
 import 'package:drone_sale/modellerim/usermodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 
 class FirebaseServis with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _dbservis = FirebaseFirestore.instance;
+  FirebaseStorage _storage = FirebaseStorage.instance;
   int x = 0;
   User _firebaseuser;
   User get firebaseuser => _firebaseuser;
@@ -110,15 +114,43 @@ class FirebaseServis with ChangeNotifier {
   }
 
   Stream<List<Ilanlar>> ilanlarigetir() {
+    //Anasayfa için
     Stream<QuerySnapshot> ilanlar = _dbservis.collection("ilanlar").snapshots();
 
     var yeniilan = ilanlar.map((mesajlistesi) =>
-        mesajlistesi.docs.map((e) => Ilanlar.toObj(e.data())).toList()); 
+        mesajlistesi.docs.map((e) => Ilanlar.toObj(e.data())).toList());
+    return yeniilan;
+  }
+
+  Stream<List<Ilanlar>> ilanlarigetirtrend() {
+    Stream<QuerySnapshot> ilanlar = _dbservis
+        .collection("ilanlar")
+        .where("boostmu", isEqualTo: true)
+        .snapshots();
+
+    var yeniilan = ilanlar.map((mesajlistesi) =>
+        mesajlistesi.docs.map((e) => Ilanlar.toObj(e.data())).toList());
     return yeniilan;
   }
 
   Future ilanekle(Ilanlar ilan) async {
     var id = _dbservis.collection("ilanlar").doc().id;
     _dbservis.collection("ilanlar").doc(id).set(ilan.toMap());
+  }
+
+
+  //Firebase Storage işlemleri
+
+  Future<String> uploadfile(
+      String userID, String fileType, File yuklenecekdosya) async {
+    Reference storageReference = _storage
+        .ref()
+        .child(userID)
+        .child(fileType)
+        .child("ilanfoto.png");
+    UploadTask uploadtask = storageReference.putFile(yuklenecekdosya);
+    var url = await uploadtask.then((a) => a.ref.getDownloadURL());
+    print("URLLL: " + url.toString());
+    return url;
   }
 }
