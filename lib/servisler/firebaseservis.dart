@@ -6,6 +6,7 @@ import 'package:drone_sale/modellerim/usermodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseServis with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -13,7 +14,6 @@ class FirebaseServis with ChangeNotifier {
   FirebaseStorage _storage = FirebaseStorage.instance;
   int x = 0;
   User _firebaseuser;
-  User get firebaseuser => _firebaseuser;
   Usermodel _usermodel;
   Usermodel get user => _usermodel;
   // bool get userogretici => _usermodel.ogretici;
@@ -68,6 +68,44 @@ class FirebaseServis with ChangeNotifier {
       return _usermodel;
     } catch (e) {
       print("Hata :" + e.toString());
+      return null;
+    }
+  }
+
+  Future<Usermodel> signwithgoogle() async {
+    try {
+      GoogleSignIn _googlesignin = GoogleSignIn();
+      GoogleSignInAccount _googleuser = await _googlesignin.signIn();
+      if (_googleuser != null) {
+        GoogleSignInAuthentication _googleauth =
+            await _googleuser.authentication;
+        if (_googleauth.idToken != null && _googleauth.accessToken != null) {
+          UserCredential userx = await _auth.signInWithCredential(
+              GoogleAuthProvider.credential(
+                  accessToken: _googleauth.accessToken,
+                  idToken: _googleauth.idToken));
+          User _userg = userx.user;
+          _usermodel = userfromfirebase(_userg);
+          QuerySnapshot sonuc = await _dbservis
+              .collection("users")
+              .where("email", isEqualTo: _usermodel.email)
+              .get();
+          if (sonuc.docs.length < 1) {
+            await verilerikaydet(_usermodel);
+          }
+
+          _usermodel = await verilerioku(_usermodel);
+          notifyListeners();
+          return _usermodel;
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("Hata var" + e.toString());
+      return null;
     }
   }
 
@@ -138,16 +176,33 @@ class FirebaseServis with ChangeNotifier {
     _dbservis.collection("ilanlar").doc(id).set(ilan.toMap());
   }
 
+  Future profilfotokaydet(String url) async {
+    await _dbservis
+        .collection("users")
+        .doc(_usermodel.userID)
+        .update({"profilfoto": url});
+    QuerySnapshot veriler = await _dbservis
+        .collection("ilanlar")
+        .where("userID", isEqualTo: _usermodel.userID)
+        .get();
+    veriler.docs.forEach((element) {
+      element.reference.update({"profilresmi": url});
+    });
+
+    var yenidata =
+        await _dbservis.collection("users").doc(_usermodel.userID).get();
+    Map gelendata = yenidata.data();
+    _usermodel = Usermodel.toObj(gelendata);
+    notifyListeners();
+  }
 
   //Firebase Storage işlemleri
 
   Future<String> uploadfile(
       String userID, String fileType, File yuklenecekdosya) async {
-    Reference storageReference = _storage
-        .ref()
-        .child(userID)
-        .child(fileType)
-        .child("ilanfoto.png");
+    var id = _dbservis.collection("ilanlar").doc().id;
+    Reference storageReference =
+        _storage.ref().child(userID).child("$fileType").child(id).child("$fileType.png");
     UploadTask uploadtask = storageReference.putFile(yuklenecekdosya);
     var url = await uploadtask.then((a) => a.ref.getDownloadURL());
     print("URLLL: " + url.toString());

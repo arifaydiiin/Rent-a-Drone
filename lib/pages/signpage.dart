@@ -91,9 +91,15 @@ class _SignPageState extends State<SignPage> {
                           child: Text("Kayıt ol ")),
                       ElevatedButton(
                           onPressed: () async {
-                            await firebase.signinwithemail(emailcontroller.text, sifrecontroller.text);
+                            await firebase.signinwithemail(
+                                emailcontroller.text, sifrecontroller.text);
                           },
                           child: Text("Giriş Yap")),
+                      ElevatedButton(
+                          onPressed: () async {
+                            await firebase.signwithgoogle();
+                          },
+                          child: Text("Google ile giriş Yap")),
                     ],
                   ),
                 )

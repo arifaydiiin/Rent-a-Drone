@@ -15,8 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) =>FirebaseServis() ,
-          child: GetMaterialApp(
+      create: (context) => FirebaseServis(),
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'DroneUP',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -39,7 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 10), () => Get.offAll(Yonlendirici()));
+    Future.delayed(
+        Duration(milliseconds: 10), () => Get.offAll(Yonlendirici()));
   }
 
   @override

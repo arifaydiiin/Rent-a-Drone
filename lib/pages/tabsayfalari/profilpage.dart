@@ -1,3 +1,6 @@
+import 'package:drone_sale/modellerim/profilecomponentler/profilUstKisim.dart';
+import 'package:drone_sale/modellerim/profilecomponentler/profilfavoriilan.dart';
+import 'package:drone_sale/modellerim/profilecomponentler/profiloncekisiparisler.dart';
 import 'package:drone_sale/servisler/firebaseservis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,84 +15,37 @@ class Profil extends StatefulWidget {
 class _ProfilState extends State<Profil> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     var kullanici = Provider.of<FirebaseServis>(context);
+    print("hi");
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
-                    CircleAvatar(
-                      radius: 45,
-                      backgroundImage:
-                          NetworkImage(kullanici.user.profilfoto, scale: 0.6),
-                    ),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("İlanlarım"),
-                        Text("105"),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Favorilerim"),
-                        Text("4"),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Engellenenler"),
-                        Text("1"),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: Colors.teal,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3,
-                child: Column(
-                  children: [],
-                ),
-              ),
-              Container(
-                color: Colors.green,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 8,
-              ),
-              ElevatedButton(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Ustkisim(width: width, height: height,),
+            ProfilFavoriilanlar(width: width),
+            Profiloncekisiparisler(width: width),
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+              width: width * 25 / 100,
+              height: height * 5 / 100,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.teal,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(22))),
                   onPressed: () async {
                     await kullanici.signout();
                   },
                   child: Text("Çıkış Yap")),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
+      /**/
     );
   }
 }

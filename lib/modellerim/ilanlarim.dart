@@ -7,10 +7,17 @@ class Ilanlar {
   final String deneyim; //x
   final String fiyat;
   bool boostmu;
+  final String profilresmi;
+  final String userID;
+
+ 
   //boostmu ?
 
   Ilanlar(
-      {this.profilurl,
+      {
+      this.userID,
+      this.profilresmi,
+      this.profilurl,
       this.fiyat,
       this.ilanadi,
       this.il,
@@ -21,6 +28,9 @@ class Ilanlar {
 
   Map<String, dynamic> toMap() {
     return {
+      "profilresmi": profilresmi ??
+          "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "userID": userID,
       "profilurl": profilurl,
       "ilanadi": ilanadi,
       "il": il,
@@ -33,7 +43,9 @@ class Ilanlar {
   }
 
   Ilanlar.toObj(Map<String, dynamic> obje)
-      : profilurl = obje["profilurl"],
+      : profilresmi = obje["profilresmi"],
+        userID = obje["userID"],
+        profilurl = obje["profilurl"],
         ilanadi = obje["ilanadi"],
         il = obje["il"],
         ilce = obje["ilce"],

@@ -326,6 +326,8 @@ class _YeniIlanState extends State<YeniIlan> {
                         var url = await kullanici.uploadfile(
                             kullanici.user.userID, "ilanfotolari", _ilanresmi);
                         Ilanlar yenilanboost = Ilanlar(
+                          userID: kullanici.user.userID,
+                          profilresmi: kullanici.user.profilfoto,
                           profilurl: _ilanresmi == null
                               ? "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
                               : url,
@@ -366,6 +368,8 @@ class _YeniIlanState extends State<YeniIlan> {
                               "ilanfotolari",
                               _ilanresmi);
                           Ilanlar yenilan = Ilanlar(
+                            userID: kullanici.user.userID,
+                            profilresmi: kullanici.user.profilfoto,
                             profilurl: _ilanresmi == null
                                 ? "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
                                 : url,

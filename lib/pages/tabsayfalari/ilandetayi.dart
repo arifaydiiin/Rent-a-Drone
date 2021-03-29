@@ -1,4 +1,3 @@
-import 'package:drone_sale/modellerim/ilanlarim.dart';
 import "package:flutter/material.dart";
 
 class IlanDetayi extends StatefulWidget {
