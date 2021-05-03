@@ -1,5 +1,5 @@
-import 'package:drone_sale/servisler/firebaseservis.dart';
 import 'package:drone_sale/pages/yonlendiricisayfa.dart';
+import 'package:drone_sale/servisler/firebaseservis.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,14 +41,22 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(
-        Duration(milliseconds: 10), () => Get.offAll(Yonlendirici()));
+        Duration(seconds: 2), () => Get.offAll(Yonlendirici()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.deepOrangeAccent[100],
       body: Center(
-        child: Text("Splash Screen"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset("lib/assets/droneicon.png"),
+            Text("Drone UP...",style: TextStyle(fontSize: 37,color: Colors.white),),
+          ],
+        )
       ),
     );
   }

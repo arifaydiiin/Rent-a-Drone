@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^1.0.0
   image_picker: ^0.7.2+1
   firebase_storage: ^8.0.0
+  uuid: ^3.0.4
 
   
 dev_dependencies:
@@ -59,6 +60,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/people.jpg
+    - lib/assets/droneicon.png
     - lib/assets/addpicture.png
     - lib/jsondosyalarim/ilveilce.json
   #   - images/a_dot_ham.jpeg

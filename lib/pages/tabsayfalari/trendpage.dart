@@ -1,5 +1,5 @@
 import 'package:drone_sale/modellerim/ilanlarim.dart';
-import 'package:drone_sale/pages/tabsayfalari/ilandetayi.dart';
+import 'package:drone_sale/pages/tabsayfalari/anasayfadetay.dart';
 import 'package:drone_sale/servisler/firebaseservis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,19 +32,28 @@ class _TrendState extends State<Trend> {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  var x = snapshot.data[index];
+                  var veriler = snapshot.data[index];
                   return Card(
                     child: ListTile(
                       onTap: () {
-                        Get.to(IlanDetayi(
-                          aciklama: x.aciklama,
-                          deneyim: x.deneyim,
-                        ));
+                        Get.to(AnaSayfaDetay(
+                            aciklama: veriler.aciklama,
+                            deneyim: veriler.deneyim,
+                            boostmu: veriler.boostmu,
+                            fiyat: veriler.fiyat,
+                            il: veriler.il,
+                            ilanadi: veriler.ilanadi,
+                            ilce: veriler.ilce,
+                            profilresmi: veriler.profilresmi,
+                            profilurl: veriler.profilurl,
+                            tarih: veriler.tarih,
+                            userID: veriler.userID,
+                          ));
                       },
                       leading: CircleAvatar(
-                        child: Text(x.il[0][0]),
+                        child: Text(veriler.il[0][0]),
                       ),
-                      title: Text(x.aciklama),
+                      title: Text(veriler.aciklama),
                     ),
                   );
                 });

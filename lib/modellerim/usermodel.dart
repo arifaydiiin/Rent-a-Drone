@@ -1,9 +1,12 @@
+import 'dart:math';
+
 class Usermodel {
-  //kullanıcıparasi;
+  int kullaniciparasi;
   final String userID;
   String email;
   bool ogretici;
   String profilfoto;
+  String kullaniciadi;
 
   Usermodel({this.userID, this.email, this.ogretici, this.profilfoto});
 
@@ -14,6 +17,8 @@ class Usermodel {
       "ogretici": ogretici ?? false,
       "profilfoto": profilfoto ??
           "https://eitrawmaterials.eu/wp-content/uploads/2016/09/empty-avatar.jpg",
+      "kullaniciadi": kullaniciadi ?? email.substring(0, email.indexOf("@")) + randomsayi(),
+      "kullaniciparasi":kullaniciparasi ?? 0,
     };
   }
 
@@ -21,10 +26,16 @@ class Usermodel {
       : userID = obje["userID"],
         email = obje["email"],
         ogretici = obje["ogretici"],
-        profilfoto = obje["profilfoto"];
+        profilfoto = obje["profilfoto"],
+        kullaniciadi = obje["kullaniciadi"],
+        kullaniciparasi = obje["kullaniciparasi"];
 
   @override
   String toString() {
     return "User {userID: $userID email: $email}";
+  }
+  String randomsayi() {
+    int rastgelesayi = Random().nextInt(99999);
+    return rastgelesayi.toString();
   }
 }

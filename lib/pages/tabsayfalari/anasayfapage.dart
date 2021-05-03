@@ -1,4 +1,5 @@
 import 'package:drone_sale/modellerim/ilanlarim.dart';
+import 'package:drone_sale/pages/tabsayfalari/anasayfadetay.dart';
 import 'package:drone_sale/pages/tabsayfalari/yeniilan.dart';
 import 'package:drone_sale/servisler/firebaseservis.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,6 @@ class AnaSayfa extends StatefulWidget {
 }
 
 class _AnaSayfaState extends State<AnaSayfa> {
- 
-
   @override
   Widget build(BuildContext context) {
     var kullanici = Provider.of<FirebaseServis>(context);
@@ -51,53 +50,71 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Card(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 12),
-                                  child: ListTile(
-                                    leading: CircleAvatar(
-                                      radius: 44,
-                                      backgroundImage: NetworkImage(
-                                          snapshot.data[index].profilresmi),
+                      var veriler = snapshot.data[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(AnaSayfaDetay(
+                            aciklama: veriler.aciklama,
+                            deneyim: veriler.deneyim,
+                            boostmu: veriler.boostmu,
+                            fiyat: veriler.fiyat,
+                            il: veriler.il,
+                            ilanadi: veriler.ilanadi,
+                            ilce: veriler.ilce,
+                            profilresmi: veriler.profilresmi,
+                            profilurl: veriler.profilurl,
+                            tarih: veriler.tarih,
+                            userID: veriler.userID,
+                          ));
+                        },
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 12),
+                                    child: ListTile(
+                                      leading: CircleAvatar(
+                                        radius: 44,
+                                        backgroundImage: NetworkImage(
+                                            snapshot.data[index].profilresmi),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(28),
-                                  ),
-                                  width: 200,
-                                  height: 200,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(22),
-                                    child: Image.network(
-                                      snapshot.data[index].profilurl,
-                                      fit: BoxFit.cover,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(28),
+                                    ),
+                                    width: 200,
+                                    height: 200,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(22),
+                                      child: Image.network(
+                                        snapshot.data[index].profilurl,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ListTile(
-                                    title: Text(snapshot.data[index].ilanadi,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontStyle: FontStyle.italic)),
-                                    trailing: Text(
-                                      "Fiyat: " + snapshot.data[index].fiyat,
-                                      style: TextStyle(fontSize: 14),
+                                  SizedBox(
+                                    height: 12,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListTile(
+                                      title: Text(snapshot.data[index].ilanadi,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontStyle: FontStyle.italic)),
+                                      trailing: Text(
+                                        "Fiyat: " + snapshot.data[index].fiyat,
+                                        style: TextStyle(fontSize: 14),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

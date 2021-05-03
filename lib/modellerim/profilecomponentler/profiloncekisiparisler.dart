@@ -27,6 +27,7 @@ class Profiloncekisiparisler extends StatelessWidget {
             width: double.infinity,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
+              itemCount: 8,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.all(8.0),
@@ -36,8 +37,7 @@ class Profiloncekisiparisler extends StatelessWidget {
                     color: Colors.teal,
                   ),
                 );
-              },
-              itemCount: 8,
+              },             
             ),
           ),
         ],

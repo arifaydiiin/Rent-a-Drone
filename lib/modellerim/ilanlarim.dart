@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Ilanlar {
   String profilurl;
   final String ilanadi; //x
@@ -9,13 +11,14 @@ class Ilanlar {
   bool boostmu;
   final String profilresmi;
   final String userID;
+  final DateTime tarih;
 
- 
   //boostmu ?
 
   Ilanlar(
       {
-      this.userID,
+        this.tarih, 
+        this.userID,
       this.profilresmi,
       this.profilurl,
       this.fiyat,
@@ -30,7 +33,7 @@ class Ilanlar {
     return {
       "profilresmi": profilresmi ??
           "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-          "userID": userID,
+      "userID": userID,
       "profilurl": profilurl,
       "ilanadi": ilanadi,
       "il": il,
@@ -39,6 +42,7 @@ class Ilanlar {
       "deneyim": deneyim,
       "fiyat": fiyat,
       "boostmu": boostmu,
+      "tarih": tarih ?? FieldValue.serverTimestamp(),
     };
   }
 
@@ -52,5 +56,6 @@ class Ilanlar {
         aciklama = obje["aciklama"],
         deneyim = obje["deneyim"],
         fiyat = obje["fiyat"],
-        boostmu = obje["boostmu"];
+        boostmu = obje["boostmu"],
+        tarih = (obje["tarih"] as Timestamp).toDate() ;
 }

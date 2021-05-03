@@ -20,9 +20,9 @@ List<Widget> sayfalar = [
 ];
 
 List<String> sayfaliste = [
-  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+  "https://tahatemiz.com/wp-content/uploads/2018/08/stock-photo-160988895.jpg",
+  "https://www.droneadana.com/wp-content/uploads/2018/10/drone-ucurmak-icin-ehliyet-gerek.jpg",
+  "https://www.reklam-cekimi.com/wp-content/uploads/2020/10/Drone-Cekimleri.jpg",
 ];
 
 class _HomePageState extends State<HomePage> {
@@ -90,12 +90,27 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black,
                       child: Image.network(sayfaliste[index]),
                     ),
+                    index == 0
+                        ? Text("Drone için ihtiyacınız olan her şey")
+                        : SizedBox(),
+                    index == 1
+                        ? Text("İster drone kiralayın ister kiralatın")
+                        : SizedBox(),
                     index == 2
-                        ? ElevatedButton(
-                            onPressed: () async {
-                              await firebase.updateogretici(firebase.user);
-                            },
-                            child: Text("Geç"))
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                height: 35,
+                              ),
+                              Text("Haydi Başlayalım"),
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    await firebase
+                                        .updateogretici(firebase.user);
+                                  },
+                                  child: Text("Devam")),
+                            ],
+                          )
                         : SizedBox(),
                   ],
                 );

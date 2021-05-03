@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:drone_sale/servisler/firebaseservis.dart';
 import "package:flutter/material.dart";
 import 'package:image_picker/image_picker.dart';
@@ -61,12 +60,8 @@ class _UstkisimState extends State<Ustkisim> {
           children: [
             Padding(
               padding: EdgeInsets.only(right: widget.width * 25 / 100, top: 40),
-              child: IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  debugPrint("Bana Tıklandı");
-                },
-                iconSize: 32,
+              child: SizedBox(
+                height: widget.height * 2 / 100,
               ),
             ),
             Padding(
@@ -174,22 +169,22 @@ class _UstkisimState extends State<Ustkisim> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Arif Aydın",
-                        style: TextStyle(fontSize: 22),
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        "Profesyonel Kullanıcı",
+                        kullanici.user.kullaniciadi,
                         style: TextStyle(fontSize: 20),
                       ),
                       SizedBox(
                         height: 3,
                       ),
                       Text(
-                        "2 Yıl Deneyim",
-                        style: TextStyle(fontSize: 18),
+                        kullanici.user.email,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        kullanici.user.kullaniciparasi.toString() + "TL",
+                        style: TextStyle(fontSize: 15),
                       ),
                       SizedBox(
                         height: widget.height * 15 / 100,

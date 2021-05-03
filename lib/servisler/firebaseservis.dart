@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone_sale/modellerim/ilanlarim.dart';
 import 'package:drone_sale/modellerim/usermodel.dart';
@@ -7,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:uuid/uuid.dart';
 
 class FirebaseServis with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -196,13 +196,39 @@ class FirebaseServis with ChangeNotifier {
     notifyListeners();
   }
 
-  //Firebase Storage işlemleri
+  Future favorilereekle(Ilanlar ilan) async {
+    var uuid = Uuid();
+    var id = uuid.v1();
+    var ekledi = await _dbservis
+        .collection("favoriler")
+        .doc(_usermodel.userID)
+        .collection("ilanlar")
+        .doc(id)
+        .set(ilan.toMap());
+    return ekledi;
+  }
 
+  Stream favorilerigetir(String userID) {
+    var gelenveri =  _dbservis
+        .collection("favoriler")
+        .doc(_usermodel.userID)
+        .collection("ilanlar")
+        .snapshots();
+   var yeniilan = gelenveri.map((mesajlistesi) =>
+        mesajlistesi.docs.map((e) => Ilanlar.toObj(e.data())).toList());
+    return yeniilan;
+  }
+
+  //Firebase Storage işlemleri
   Future<String> uploadfile(
       String userID, String fileType, File yuklenecekdosya) async {
     var id = _dbservis.collection("ilanlar").doc().id;
-    Reference storageReference =
-        _storage.ref().child(userID).child("$fileType").child(id).child("$fileType.png");
+    Reference storageReference = _storage
+        .ref()
+        .child(userID)
+        .child("$fileType")
+        .child(id)
+        .child("$fileType.png");
     UploadTask uploadtask = storageReference.putFile(yuklenecekdosya);
     var url = await uploadtask.then((a) => a.ref.getDownloadURL());
     print("URLLL: " + url.toString());
