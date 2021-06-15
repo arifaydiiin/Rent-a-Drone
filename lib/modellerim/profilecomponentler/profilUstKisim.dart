@@ -23,17 +23,25 @@ class _UstkisimState extends State<Ustkisim> {
 
   var picker = ImagePicker();
 
-  _gopicture(ImageSource gelenveri) async {
-    var pickedFile = await picker.getImage(source: gelenveri);
-    setState(() {
+  Future<bool> _gopicture(ImageSource gelenveri) async {
+    try {
+      var pickedFile = await picker.getImage(source: gelenveri);
       if (pickedFile != null) {
-        _profilresmi = File(pickedFile.path);
+        setState(() {
+          if (pickedFile != null) {
+            _profilresmi = File(pickedFile.path);
 
-        Navigator.of(context).pop();
-      } else {
-        print('No image selected.');
+            Navigator.of(context).pop();
+          } else {
+            print('No image selected.');
+          }
+        });
+        return true;
       }
-    });
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
@@ -96,16 +104,21 @@ class _UstkisimState extends State<Ustkisim> {
                                           children: [
                                             GestureDetector(
                                                 onTap: () async {
-                                                  await _gopicture(
+                                                  var sonuc = await _gopicture(
                                                       ImageSource.gallery);
-                                                  var url = await kullanici
-                                                      .uploadfile(
-                                                          kullanici.user.userID,
-                                                          "profilfotosu",
-                                                          _profilresmi);
+                                                  if (sonuc) {
+                                                    var url = await kullanici
+                                                        .uploadfile(
+                                                            kullanici
+                                                                .user.userID,
+                                                            "profilfotosu",
+                                                            _profilresmi);
 
-                                                  await kullanici
-                                                      .profilfotokaydet(url);
+                                                    await kullanici
+                                                        .profilfotokaydet(url);
+                                                  } else {
+                                                    return null;
+                                                  }
                                                 },
                                                 child: Text(
                                                   "Galeriden seç",
@@ -115,15 +128,19 @@ class _UstkisimState extends State<Ustkisim> {
                                             SizedBox(height: 20),
                                             GestureDetector(
                                                 onTap: () async {
-                                                  await _gopicture(
+                                                  var sonuc = await _gopicture(
                                                       ImageSource.camera);
-                                                  var url = await kullanici
-                                                      .uploadfile(
-                                                          kullanici.user.userID,
-                                                          "profilfotosu",
-                                                          _profilresmi);
-                                                  await kullanici
-                                                      .profilfotokaydet(url);
+                                                  if (sonuc) {
+                                                    var url = await kullanici
+                                                        .uploadfile(
+                                                            kullanici
+                                                                .user.userID,
+                                                            "profilfotosu",
+                                                            _profilresmi);
+                                                    await kullanici
+                                                        .profilfotokaydet(url);
+                                                  }
+                                                  return null;
                                                 },
                                                 child: Text("Kameradan Seç",
                                                     style: TextStyle(

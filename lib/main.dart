@@ -3,6 +3,7 @@ import 'package:drone_sale/servisler/firebaseservis.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -40,8 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-        Duration(seconds: 2), () => Get.offAll(Yonlendirici()));
+    Future.delayed(Duration(seconds: 3), () => Get.offAll(Yonlendirici()));
   }
 
   @override
@@ -49,15 +49,19 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.deepOrangeAccent[100],
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset("lib/assets/droneicon.png"),
-            Text("Drone UP...",style: TextStyle(fontSize: 37,color: Colors.white),),
-          ],
-        )
-      ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Lottie.asset(
+            "lib/assets/drone.json",
+          ),
+          Text(
+            "Drone UP...",
+            style: TextStyle(fontSize: 37, color: Colors.white),
+          ),
+        ],
+      )),
     );
   }
 }

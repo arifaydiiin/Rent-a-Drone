@@ -7,8 +7,13 @@ class Usermodel {
   bool ogretici;
   String profilfoto;
   String kullaniciadi;
-
-  Usermodel({this.userID, this.email, this.ogretici, this.profilfoto});
+  Usermodel(
+      {this.userID,
+      this.email,
+      this.ogretici,
+      this.profilfoto,
+      this.kullaniciadi,
+      this.kullaniciparasi});
 
   Map<String, dynamic> toMap() {
     return {
@@ -17,8 +22,9 @@ class Usermodel {
       "ogretici": ogretici ?? false,
       "profilfoto": profilfoto ??
           "https://eitrawmaterials.eu/wp-content/uploads/2016/09/empty-avatar.jpg",
-      "kullaniciadi": kullaniciadi ?? email.substring(0, email.indexOf("@")) + randomsayi(),
-      "kullaniciparasi":kullaniciparasi ?? 0,
+      "kullaniciadi":
+          kullaniciadi ?? email.substring(0, email.indexOf("@")) + randomsayi(),
+      "kullaniciparasi": kullaniciparasi ?? 0,
     };
   }
 
@@ -34,6 +40,7 @@ class Usermodel {
   String toString() {
     return "User {userID: $userID email: $email}";
   }
+
   String randomsayi() {
     int rastgelesayi = Random().nextInt(99999);
     return rastgelesayi.toString();

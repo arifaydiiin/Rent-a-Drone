@@ -12,13 +12,13 @@ class Ilanlar {
   final String profilresmi;
   final String userID;
   final DateTime tarih;
+  String kullaniciismi;
 
   //boostmu ?
 
   Ilanlar(
-      {
-        this.tarih, 
-        this.userID,
+      {this.tarih,
+      this.userID,
       this.profilresmi,
       this.profilurl,
       this.fiyat,
@@ -27,6 +27,7 @@ class Ilanlar {
       this.ilce,
       this.aciklama,
       this.deneyim,
+      this.kullaniciismi,
       this.boostmu});
 
   Map<String, dynamic> toMap() {
@@ -41,6 +42,7 @@ class Ilanlar {
       "aciklama": aciklama,
       "deneyim": deneyim,
       "fiyat": fiyat,
+      "kullaniciismi": kullaniciismi,
       "boostmu": boostmu,
       "tarih": tarih ?? FieldValue.serverTimestamp(),
     };
@@ -51,11 +53,12 @@ class Ilanlar {
         userID = obje["userID"],
         profilurl = obje["profilurl"],
         ilanadi = obje["ilanadi"],
+        kullaniciismi = obje["kullaniciismi"],
         il = obje["il"],
         ilce = obje["ilce"],
         aciklama = obje["aciklama"],
         deneyim = obje["deneyim"],
         fiyat = obje["fiyat"],
         boostmu = obje["boostmu"],
-        tarih = (obje["tarih"] as Timestamp).toDate() ;
+        tarih = (obje["tarih"] as Timestamp).toDate();
 }

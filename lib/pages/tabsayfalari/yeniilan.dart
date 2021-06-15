@@ -99,19 +99,22 @@ class _YeniIlanState extends State<YeniIlan> {
                     showModalBottomSheet(
                         context: context,
                         builder: (context) {
-                          return Column(
-                            children: [
-                              ListTile(
-                                leading: Icon(Icons.camera),
-                                title: Text("Kameradan seç"),
-                                onTap: () => _gopicture(ImageSource.camera),
-                              ),
-                              ListTile(
-                                leading: Icon(Icons.image),
-                                title: Text("Galeriden seç"),
-                                onTap: () => _gopicture(ImageSource.gallery),
-                              ),
-                            ],
+                          return Container(
+                            height: 120,
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  leading: Icon(Icons.camera),
+                                  title: Text("Kameradan seç"),
+                                  onTap: () => _gopicture(ImageSource.camera),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.image),
+                                  title: Text("Galeriden seç"),
+                                  onTap: () => _gopicture(ImageSource.gallery),
+                                ),
+                              ],
+                            ),
                           );
                         });
                   },
@@ -338,6 +341,7 @@ class _YeniIlanState extends State<YeniIlan> {
                           ilanadi: _textilanbaslik.text,
                           ilce: _secilenilce.toString(),
                           boostmu: true,
+                          kullaniciismi: kullanici.user.kullaniciadi,
                         );
                         kullanici.ilanekle(yenilanboost);
                       }
@@ -380,6 +384,7 @@ class _YeniIlanState extends State<YeniIlan> {
                             ilanadi: _textilanbaslik.text,
                             ilce: _secilenilce.toString(),
                             boostmu: false,
+                            kullaniciismi: kullanici.user.kullaniciadi,
                           );
                           kullanici.ilanekle(yenilan);
                           showDialog(

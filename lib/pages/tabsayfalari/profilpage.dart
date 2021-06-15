@@ -1,6 +1,6 @@
 import 'package:drone_sale/modellerim/profilecomponentler/profilUstKisim.dart';
 import 'package:drone_sale/modellerim/profilecomponentler/profilfavoriilan.dart';
-import 'package:drone_sale/modellerim/profilecomponentler/profiloncekisiparisler.dart';
+import 'package:drone_sale/modellerim/profilecomponentler/profilkendiilanlarim.dart';
 import 'package:drone_sale/servisler/firebaseservis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,11 +23,18 @@ class _ProfilState extends State<Profil> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Ustkisim(width: width, height: height,),
+            Ustkisim(
+              width: width,
+              height: height,
+            ),
             ProfilFavoriilanlar(width: width),
+            Divider(
+              indent: 10,
+              endIndent: 10,
+            ),
             Profiloncekisiparisler(width: width),
             SizedBox(
-              height: 5,
+              height: height * 4 / 100,
             ),
             Container(
               width: width * 25 / 100,

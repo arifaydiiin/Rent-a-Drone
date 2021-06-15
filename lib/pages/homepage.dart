@@ -20,7 +20,7 @@ List<Widget> sayfalar = [
 ];
 
 List<String> sayfaliste = [
-  "https://tahatemiz.com/wp-content/uploads/2018/08/stock-photo-160988895.jpg",
+  "https://www.volkanaktoprak.com/wp-content/bloger/resimler/izmir-drone-cekimi-2020-04-28_02-33-32.jpg",
   "https://www.droneadana.com/wp-content/uploads/2018/10/drone-ucurmak-icin-ehliyet-gerek.jpg",
   "https://www.reklam-cekimi.com/wp-content/uploads/2020/10/Drone-Cekimleri.jpg",
 ];

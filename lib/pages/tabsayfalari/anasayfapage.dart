@@ -1,5 +1,6 @@
 import 'package:drone_sale/modellerim/ilanlarim.dart';
 import 'package:drone_sale/pages/tabsayfalari/anasayfadetay.dart';
+import 'package:drone_sale/pages/tabsayfalari/konustuklarim.dart';
 import 'package:drone_sale/pages/tabsayfalari/yeniilan.dart';
 import 'package:drone_sale/servisler/firebaseservis.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,13 @@ class _AnaSayfaState extends State<AnaSayfa> {
               onPressed: () async {
                 Get.to(YeniIlan());
               },
-            )
+            ),
+            IconButton(
+              icon: Icon(Icons.message),
+              onPressed: () async {
+                Get.to(Mesajlaslarim());
+              },
+            ),
           ],
         ),
         body: Container(
@@ -76,10 +83,16 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 12),
                                     child: ListTile(
+                                      title: Text(
+                                        snapshot.data[index].kullaniciismi,
+                                        style: TextStyle(fontSize: 16),
+                                      ),
                                       leading: CircleAvatar(
-                                        radius: 44,
+                                        maxRadius: 34,
+                                        minRadius: 18,
                                         backgroundImage: NetworkImage(
-                                            snapshot.data[index].profilresmi),
+                                          snapshot.data[index].profilresmi,
+                                        ),
                                       ),
                                     ),
                                   ),

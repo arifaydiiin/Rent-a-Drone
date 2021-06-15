@@ -83,23 +83,50 @@ class _SignPageState extends State<SignPage> {
                                       BorderRadius.all(Radius.circular(26.0)))),
                         ),
                       ),
-                      ElevatedButton(
-                          onPressed: () async {
-                            await firebase.createuserwithemail(
-                                emailcontroller.text, sifrecontroller.text);
-                          },
-                          child: Text("Kayıt ol ")),
-                      ElevatedButton(
-                          onPressed: () async {
-                            await firebase.signinwithemail(
-                                emailcontroller.text, sifrecontroller.text);
-                          },
-                          child: Text("Giriş Yap")),
-                      ElevatedButton(
-                          onPressed: () async {
-                            await firebase.signwithgoogle();
-                          },
-                          child: Text("Google ile giriş Yap")),
+                      SizedBox(
+                        height: 22,
+                      ),
+                      Container(
+                        width: 160,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.green[600],
+                            ),
+                            onPressed: () async {
+                              await firebase.createuserwithemail(
+                                  emailcontroller.text, sifrecontroller.text);
+                            },
+                            child: Text("Kayıt ol ")),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: 160,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.green[600],
+                            ),
+                            onPressed: () async {
+                              await firebase.signinwithemail(
+                                  emailcontroller.text, sifrecontroller.text);
+                            },
+                            child: Text("Giriş Yap")),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: 160,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.green[600],
+                            ),
+                            onPressed: () async {
+                              await firebase.signwithgoogle();
+                            },
+                            child: Text("Google ile giriş Yap")),
+                      ),
                     ],
                   ),
                 )

@@ -33,27 +33,37 @@ class _TrendState extends State<Trend> {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   var veriler = snapshot.data[index];
-                  return Card(
+                  return Container(
+                    height: 75,
                     child: ListTile(
                       onTap: () {
                         Get.to(AnaSayfaDetay(
-                            aciklama: veriler.aciklama,
-                            deneyim: veriler.deneyim,
-                            boostmu: veriler.boostmu,
-                            fiyat: veriler.fiyat,
-                            il: veriler.il,
-                            ilanadi: veriler.ilanadi,
-                            ilce: veriler.ilce,
-                            profilresmi: veriler.profilresmi,
-                            profilurl: veriler.profilurl,
-                            tarih: veriler.tarih,
-                            userID: veriler.userID,
-                          ));
+                          aciklama: veriler.aciklama,
+                          deneyim: veriler.deneyim,
+                          boostmu: veriler.boostmu,
+                          fiyat: veriler.fiyat,
+                          il: veriler.il,
+                          ilanadi: veriler.ilanadi,
+                          ilce: veriler.ilce,
+                          profilresmi: veriler.profilresmi,
+                          profilurl: veriler.profilurl,
+                          tarih: veriler.tarih,
+                          userID: veriler.userID,
+                        ));
                       },
-                      leading: CircleAvatar(
-                        child: Text(veriler.il[0][0]),
+                      leading: Container(
+                        width: 70,
+                        height: 70,
+                        child: Image.network(
+                          veriler.profilurl,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                      title: Text(veriler.aciklama),
+                      title: Text(veriler.aciklama.length > 25
+                          ? veriler.aciklama.substring(0, 25) + "..."
+                          : veriler.aciklama),
+                      subtitle: Text(veriler.il + ", " + veriler.ilce),
+                      trailing: Text(veriler.fiyat + "tl"),
                     ),
                   );
                 });

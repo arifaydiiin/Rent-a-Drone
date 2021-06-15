@@ -1,11 +1,12 @@
+import 'package:drone_sale/modellerim/ilanlarim.dart';
 import 'package:drone_sale/pages/tabsayfalari/anasayfadetay.dart';
 import 'package:drone_sale/servisler/firebaseservis.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class ProfilFavoriilanlar extends StatelessWidget {
-  const ProfilFavoriilanlar({
+class Profiloncekisiparisler extends StatelessWidget {
+  const Profiloncekisiparisler({
     Key key,
     @required this.width,
   }) : super(key: key);
@@ -14,6 +15,9 @@ class ProfilFavoriilanlar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     var kullanici = Provider.of<FirebaseServis>(context);
     return Container(
       width: width,
@@ -21,25 +25,25 @@ class ProfilFavoriilanlar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10, top: 20),
+            padding: const EdgeInsets.only(left: 10, top: 10),
             child: Text(
-              "Favori ilanlarınız",
+              "Benim İlanlarım",
               style: TextStyle(fontSize: 20),
             ),
           ),
-          StreamBuilder(
-              stream: kullanici.favorilerigetir(kullanici.user.userID),
+          StreamBuilder<List<Ilanlar>>(
+              stream: kullanici.kendiilanimigetir(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (snapshot.data.length < 1) {
+                 if (snapshot.data.length < 1) {
                   return Column(children: [
                     Padding(
                       padding: const EdgeInsets.all(14.0),
-                      child: Text("Favori İlanınız yok"),
+                      child: Text("Şuanda İlanınız yok"),
                     ),
                   ]);
                 }
@@ -48,6 +52,7 @@ class ProfilFavoriilanlar extends StatelessWidget {
                   width: double.infinity,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       var veriler = snapshot.data[index];
                       return GestureDetector(
@@ -67,19 +72,14 @@ class ProfilFavoriilanlar extends StatelessWidget {
                           ));
                         },
                         child: Padding(
-                          padding: EdgeInsets.only(left: 8),
+                          padding: EdgeInsets.all(8.0),
                           child: Container(
-                            height: 130,
-                            width: 90,
-                            child: Image.network(
-                              snapshot.data[index].profilurl,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                              height: 130,
+                              width: 90,
+                              child: Image.network(veriler.profilurl)),
                         ),
                       );
                     },
-                    itemCount: snapshot.data.length,
                   ),
                 );
               }),
